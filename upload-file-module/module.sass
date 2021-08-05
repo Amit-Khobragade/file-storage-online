@@ -37,11 +37,23 @@
     grid-template-columns: 1fr
     grid-template-rows: 10fr 1fr
     align-items: center
+    height: 100%
+    cursor: pointer
+    overflow-y: scroll
+
+    &:hover
+        box-shadow: 1px 1px 2px black
 
 #add-btn
     width: max-content
     justify-self: center
-    display: none
+    // display: none
 
 .visible
     display: block
+
+.invisible
+    display: none
+
+.fileName
+    font-family: monospace

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./module.css">
+    <script src="./module.js" defer></script>
 </head>
 
 <body>
@@ -14,8 +15,8 @@
         <article class="btn" id="close-btn">close</article>
         <article id="drop-box">
             <h1>drop files here or click here to upload files</h1>
-            <input type="file" name="fileInput" id="file-input">
-            <div class="btn" id="add-btn">add</div>
+            <input type="file" name="fileInput" id="file-input" multiple>
+            <div class="btn invisible" id="add-btn">add</div>
         </article>
     </section>
 </body>
