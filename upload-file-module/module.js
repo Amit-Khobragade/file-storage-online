@@ -4,10 +4,12 @@ const closeEvent = new Event("close-clicked");
 
 //close event
 document.querySelectorAll("#shade,#close-btn").forEach((e) => {
-    document.dispatchEvent(closeEvent);
+    e.addEventListener("click", () => {
+        document.dispatchEvent(closeEvent);
+    });
 });
 // add event
-document.getElementById("add-btn").addEventListener((e) => {
+document.getElementById("add-btn").addEventListener("click", (e) => {
     document.dispatchEvent(addEvent);
 });
 
