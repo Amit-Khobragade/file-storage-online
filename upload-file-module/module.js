@@ -1,9 +1,14 @@
+// * Custom events for clicking on add or closing the prompt
 const addEvent = new Event("add-clicked");
 const closeEvent = new Event("close-clicked");
 
 //close event
 document.querySelectorAll("#shade,#close-btn").forEach((e) => {
     document.dispatchEvent(closeEvent);
+});
+// add event
+document.getElementById("add-btn").addEventListener((e) => {
+    document.dispatchEvent(addEvent);
 });
 
 const inpElem = document.getElementById("file-input");
@@ -25,13 +30,15 @@ dropBox.addEventListener("drop", (e) => {
 
     inpElem.files = list.files;
     inpElem.dispatchEvent(new Event("change"));
-    // console.log(inpElem.files);
 });
 
 dropBox.addEventListener("dragover", (e) => {
     e.preventDefault();
 });
 
+//!Donot Touch the function unless you know what you are doing
+// ! Almost the entire functioning of the module is dependent on
+// ! this peice of code so use with caution.
 inpElem.addEventListener("change", (e) => {
     var feild = document.querySelector(".text-area");
     if (inpElem.files.length == 1) {
@@ -44,6 +51,8 @@ inpElem.addEventListener("change", (e) => {
     feild.querySelectorAll(".fileName").forEach((toDelete) => {
         toDelete.remove();
     });
+
+    // ! Warning: Changing 90% of the code below leads the code to break
     for (var i = 0; i < inpElem.files.length; ++i) {
         var name = inpElem.files[i].name;
         const txt = document.createTextNode("\n" + name);
@@ -53,3 +62,7 @@ inpElem.addEventListener("change", (e) => {
         feild.prepend(node);
     }
 });
+
+function getInputFiles() {
+    return inpElem.files;
+}
