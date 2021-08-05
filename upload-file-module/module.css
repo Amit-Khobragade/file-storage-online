@@ -1,3 +1,10 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 h1 {
   font-size: clamp(1.25rem, 4vw, 4rem);
   font-family: monospace;
@@ -21,7 +28,7 @@ h1 {
 
 #upload-prompt {
   background: blue;
-  position: absolute;
+  position: fixed;
   padding: 10px;
   top: 50%;
   left: 50%;
@@ -38,7 +45,7 @@ h1 {
 }
 
 #shade {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
