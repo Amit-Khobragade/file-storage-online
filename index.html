@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index-dependencies/styles/index.css">
     <link rel="stylesheet" href="./upload-file-module/module.css">
-    <script src="./upload-file-module/module.js" defer></script>
-    <script src="./index-dependencies/script/index.js" defer></script>
+    <script src="./global.js" defer></script>
+    <script src="./Data/folder.js" defer></script>
+    <script src="./upload-file-module/module.mjs" defer type="module"></script>
+    <script src="./index-dependencies/script/index.mjs" defer type="module"></script>
     <title>Documents</title>
 </head>
 
@@ -30,15 +32,15 @@
 
         </article>
     </main>
+    <div id="shade"></div>
     <div id="upload-module">
-        <div id="shade"></div>
         <section id="upload-prompt">
             <article class="btn" id="close-btn">close</article>
             <article id="drop-box">
                 <h1>drop files here or click here to upload files</h1>
                 <input type="file" name="fileInput" id="file-input" multiple>
-                <div class="btn invisible" id="add-btn">add</div>
             </article>
+            <div class="btn invisible" id="add-btn">add</div>
         </section>
     </div>
 </body>
