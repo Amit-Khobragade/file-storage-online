@@ -1,0 +1,71 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+h1 {
+  font-size: clamp(1.25rem, 4vw, 4rem);
+  font-family: monospace;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.btn {
+  background: #fa1b1b;
+  padding: 3px;
+  box-shadow: 0 0 0 3px white, 0 0 0 5px #fa1b1b;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 500ms linear;
+  text-transform: capitalize;
+}
+.btn:hover {
+  transform: scale(1.1, 1.1);
+  box-shadow: 0 0 0 1px white, 0 0 0 3px #fa1b1b;
+}
+
+#folder-prompt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: blue;
+  width: 80%;
+  height: 25%;
+  max-width: 400px;
+  border-radius: 4px;
+  padding: 30px;
+}
+
+#folder-module {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 1fr;
+  gap: 5px 5px;
+}
+
+#folder-input-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px 5px;
+}
+
+#folder-submit-btn, #folder-cancel-btn {
+  height: 100%;
+  width: 48%;
+  border-radius: 4px;
+}
+
+#folder-name {
+  border-radius: 4px;
+}
+
+#folder-name {
+  text-align: center;
+}
+
+/*# sourceMappingURL=module.css.map */
