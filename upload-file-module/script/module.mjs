@@ -58,7 +58,7 @@ const uploadModule = (function () {
     // *================ Events ==================
 
     //close event
-    document.querySelectorAll("#shade,#close-btn").forEach((e) => {
+    [document.querySelector("#close-btn"), shade].forEach((e) => {
         e.addEventListener("click", () => {
             document.dispatchEvent(closeEvent);
         });
