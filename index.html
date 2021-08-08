@@ -6,10 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index-dependencies/styles/index.css">
-    <link rel="stylesheet" href="./upload-file-module/module.css">
-    <script src="./global.js" defer></script>
+    <script src="./global/script/global.js" defer></script>
     <script src="./Data/folder.js" defer></script>
-    <script src="./upload-file-module/module.mjs" defer type="module"></script>
+    <script src="./upload-file-module/script/module.mjs" defer type="module"></script>
     <script src="./index-dependencies/script/index.mjs" defer type="module"></script>
     <title>Documents</title>
 </head>
@@ -32,17 +31,18 @@
 
         </article>
     </main>
+    <!-- ! Donot move the shade below others as then you will have to play with z-index -->
     <div id="shade"></div>
-    <div id="upload-module">
-        <section id="upload-prompt">
-            <article class="btn" id="close-btn">close</article>
-            <article id="drop-box">
-                <h1>drop files here or click here to upload files</h1>
-                <input type="file" name="fileInput" id="file-input" multiple>
-            </article>
-            <div class="btn invisible" id="add-btn">add</div>
-        </section>
-    </div>
+
+    <!-- *============Upload Module============= -->
+    <section id="upload-module">
+        <article class="btn" id="close-btn">close</article>
+        <article id="drop-box">
+            <h1>drop files here or click here to upload files</h1>
+            <input type="file" name="fileInput" id="file-input" multiple>
+        </article>
+        <div class="btn invisible" id="add-btn">add</div>
+    </section>
 </body>
 
 </html>

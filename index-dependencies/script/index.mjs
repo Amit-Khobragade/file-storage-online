@@ -1,4 +1,4 @@
-import uploadModule from "../../upload-file-module/module.mjs";
+import uploadModule from "../../upload-file-module/script/module.mjs";
 
 const mainHandlerObject = (function () {
     var home = new Folder("home");
