@@ -1,7 +1,8 @@
 import uploadModule from "../../upload-file-module/script/module.mjs";
+import newFolderModule from "../../new-folder-module/script/module.mjs";
 
 const mainHandlerObject = (function () {
-    var home = new Folder("home");
+    const home = new Folder("home", null);
     var currentFolder = home;
     var view = document.getElementById("view");
     const ctrls = document.getElementById("ctrls");
@@ -32,6 +33,15 @@ const mainHandlerObject = (function () {
         view.appendChild(newh1);
     }
 
+    function setCurrentFolderToPrevFolder() {
+        if (currentFolder.getPreviousFolder()) {
+            currentFolder = currentFolder.getPreviousFolder();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function openFolder(item) {
         if (!item instanceof Folder) return;
 
@@ -43,14 +53,17 @@ const mainHandlerObject = (function () {
         while (view.firstChild) {
             view.removeChild(view.firstChild);
         }
-        currentFolder.list.forEach((val) => {
+        [...currentFolder.list].forEach((val) => {
             if (val instanceof Folder) addToDir("folder", val);
             else addToDir("file", val);
         });
     }
     return {
         ctrls: ctrls,
+        currentFolder: currentFolder,
         addToDir: addToDir,
+        goBackFolder: setCurrentFolderToPrevFolder,
+        updateView: updateView,
     };
 })();
 
@@ -82,3 +95,52 @@ const uploadHandlerObject = (function () {
             toggleShade();
         });
 })();
+
+const folderHandlerObject = (function () {
+    newFolderModule.folderForm.classList.toggle(invisibleClass);
+    document.addEventListener(newFolderModule.submitEvent.type, () => {
+        toggleShade();
+        newFolderModule.folderForm.classList.toggle(invisibleClass);
+        mainHandlerObject.addToDir(
+            "folder",
+            new Folder(
+                newFolderModule.getFolderName(),
+                mainHandlerObject.currentFolder
+            )
+        );
+        newFolderModule.clearInput();
+    });
+    document.addEventListener(newFolderModule.cancelEvent.type, () => {
+        toggleShade();
+        newFolderModule.folderForm.classList.toggle(invisibleClass);
+        newFolderModule.clearInput();
+    });
+    mainHandlerObject.ctrls
+        .querySelector("#add-btn")
+        .addEventListener("click", () => {
+            toggleShade();
+            newFolderModule.folderForm.classList.toggle(invisibleClass);
+        });
+})();
+
+const backHandlerObject = (function () {
+    mainHandlerObject.ctrls
+        .querySelector("#back-btn")
+        .addEventListener("click", () => {
+            if (mainHandlerObject.goBackFolder()) {
+                mainHandlerObject.updateView();
+            } else {
+                alert("no previous folder Found");
+            }
+        });
+})();
+// *========================================
+// *========= listener for shade ===========
+
+shade.addEventListener("click", (e) => {
+    if (uploadModule.isVisible()) {
+        document.dispatchEvent(uploadModule.closeEvent);
+    } else if (newFolderModule.isVisible()) {
+        document.dispatchEvent(newFolderModule.cancelEvent);
+    }
+});
