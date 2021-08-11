@@ -1,6 +1,6 @@
-@use "../global"
+@use '../../global/styles/global' 
 
-#upload-prompt
+#upload-module
     background: blue
     position: fixed
     padding: 10px
@@ -11,19 +11,14 @@
     height: 50%
     display: grid
     grid-template-columns: 1fr
-    grid-template-rows: max-content 1fr
+    grid-template-rows: max-content 1fr max-content
     justify-content: center
     align-items: center
     text-align: center
     border-radius: global.$radius
 
-#shade
-    position: fixed
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-    background: rgba(0, 0, 0, 0.5)
+    &.invisible
+        display: none
 
 #file-input
     display: none
@@ -48,12 +43,6 @@
     width: max-content
     justify-self: center
     // display: none
-
-.visible
-    display: block
-
-.invisible
-    display: none
 
 .fileName
     font-family: monospace

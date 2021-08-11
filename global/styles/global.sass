@@ -28,3 +28,17 @@ h1
     &:hover
         transform: scale(1.1, 1.1)
         box-shadow: $three-0 1px white, $three-0 3px map-get($bgc, "bg-1")
+
+#shade
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    background: rgba(0, 0, 0, 0.5)
+
+    &.invisible
+        display: none
+
+.invisible
+    display: none

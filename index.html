@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index-dependencies/styles/index.css">
+    <script src="./global/script/global.js" defer></script>
+    <script src="./Data/folder.js" defer></script>
+    <script src="./upload-file-module/script/module.mjs" defer type="module"></script>
+    <script src="./index-dependencies/script/index.mjs" defer type="module"></script>
+    <script src="./new-folder-module/module.js" defer type="module"></script>
     <title>Documents</title>
 </head>
 
@@ -18,7 +23,7 @@
     <main class="main" id="main">
         <section id="path">home</section>
         <section id="ctrls">
-            <div class="btn" id="upload-btn">back</div>
+            <div class="btn" id="back-btn">back</div>
             <div class="btn" id="delete-btn">delete</div>
             <div class="btn" id="add-btn">add folder</div>
             <div class="btn" id="upload-btn">upload files</div>
@@ -27,6 +32,33 @@
 
         </article>
     </main>
+    <!-- ! Donot move the shade below others as then you will have to play with z-index -->
+    <div id="shade"></div>
+
+    <!-- *============Upload Module============= -->
+    <section id="upload-module">
+        <article class="btn" id="close-btn">close</article>
+        <article id="drop-box">
+            <h1>drop files here or click here to upload files</h1>
+            <input type="file" name="fileInput" id="file-input" multiple>
+        </article>
+        <div class="btn invisible" id="add-btn">add</div>
+    </section>
+
+    <!-- *===============Folder Form============ -->
+    <form name="folderForm" id="folder-module">
+        <input type="text" name="folderName" id="folder-name" placeholder="Folder Name" required pattern="[a-zA-Z0-9]+"
+            oninvalid="this.setCustomValidity('please enter a valid string without any special characters')""
+            oninput=" this.setCustomValidity('')">
+        <div id="folder-input-btns">
+            <button name="add" id="folder-submit-btn">
+                add
+            </button>
+            <button name="cancel" id="folder-cancel-btn">
+                cancel
+            </button>
+        </div>
+    </form>
 </body>
 
 </html>
