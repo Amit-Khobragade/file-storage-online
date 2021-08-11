@@ -10,6 +10,7 @@
     <script src="./Data/folder.js" defer></script>
     <script src="./upload-file-module/script/module.mjs" defer type="module"></script>
     <script src="./index-dependencies/script/index.mjs" defer type="module"></script>
+    <script src="./new-folder-module/module.js" defer type="module"></script>
     <title>Documents</title>
 </head>
 
@@ -43,6 +44,21 @@
         </article>
         <div class="btn invisible" id="add-btn">add</div>
     </section>
+
+    <!-- *===============Folder Form============ -->
+    <form name="folderForm" id="folder-module">
+        <input type="text" name="folderName" id="folder-name" placeholder="Folder Name" required pattern="[a-zA-Z0-9]+"
+            oninvalid="this.setCustomValidity('please enter a valid string without any special characters')""
+            oninput=" this.setCustomValidity('')">
+        <div id="folder-input-btns">
+            <button name="add" id="folder-submit-btn">
+                add
+            </button>
+            <button name="cancel" id="folder-cancel-btn">
+                cancel
+            </button>
+        </div>
+    </form>
 </body>
 
 </html>
