@@ -54,15 +54,18 @@ const uploadModule = (function () {
         }
     }
 
+    function isVisible() {
+        return !dropBox.parentElement.classList.contains(invisibleClass);
+    }
+
     // *==========================================
     // *================ Events ==================
 
     //close event
-    [document.querySelector("#close-btn"), shade].forEach((e) => {
-        e.addEventListener("click", () => {
-            document.dispatchEvent(closeEvent);
-        });
+    document.querySelector("#close-btn").addEventListener("click", () => {
+        document.dispatchEvent(closeEvent);
     });
+
     // add event
     addBtn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -95,6 +98,7 @@ const uploadModule = (function () {
         addEvent: addEvent,
         getInputFiles: getInputFiles,
         clearInputStream: clearInputStream,
+        isVisible: isVisible,
     };
 })();
 
