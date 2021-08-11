@@ -94,6 +94,47 @@ h1 {
   font-family: monospace;
 }
 
+#folder-module {
+  width: 80%;
+  height: 25%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 1fr;
+  gap: 5px 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: blue;
+  max-width: 400px;
+  border-radius: 4px;
+  padding: 30px;
+}
+#folder-module.invisible {
+  display: none;
+}
+
+#folder-input-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px 5px;
+}
+
+#folder-submit-btn, #folder-cancel-btn {
+  height: 100%;
+  width: 48%;
+  border-radius: 4px;
+}
+
+#folder-name {
+  border-radius: 4px;
+}
+
+#folder-name {
+  text-align: center;
+}
+
 body {
   display: grid;
   grid-template-columns: 1fr;
