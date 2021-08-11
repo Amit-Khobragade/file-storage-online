@@ -10,3 +10,7 @@ function createh1(text) {
 function toggleShade() {
     shade.classList.toggle(invisibleClass);
 }
+
+window.addEventListener("load", () => {
+    document.body.style.visibility = "visible";
+});
