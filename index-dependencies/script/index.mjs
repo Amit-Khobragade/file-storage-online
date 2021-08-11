@@ -134,6 +134,13 @@ const backHandlerObject = (function () {
             }
         });
 })();
+
+const deleteHandlerObject = (function () {
+    mainHandlerObject.ctrls
+        .querySelector("#delete-btn")
+        .addEventListener("click", () => {});
+})();
+
 // *========================================
 // *========= listener for shade ===========
 
