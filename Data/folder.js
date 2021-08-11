@@ -1,10 +1,19 @@
 class Folder {
+    #previousFolder = null;
     #list = new Map();
     name = "";
-    constructor(name) {
+
+    constructor(name, previousFolder) {
         this.name = name;
+        this.#previousFolder = previousFolder;
     }
 
+    getPreviousFolder() {
+        return this.#previousFolder;
+    }
+    setPreviousFolder(previousFolder) {
+        this.#previousFolder = previousFolder;
+    }
     insertItem(name, obj) {
         this.#list.set(name, obj);
     }
@@ -12,7 +21,7 @@ class Folder {
         this.#list.delete(name);
     }
     get list() {
-        return this.#list.keys();
+        return this.#list.values();
     }
     getItem(name) {
         return this.#list.get(name);
