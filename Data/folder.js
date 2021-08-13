@@ -20,10 +20,16 @@ class Folder {
     deleteItem(name) {
         this.#list.delete(name);
     }
+    get names() {
+        return this.#list.keys();
+    }
     get list() {
         return this.#list.values();
     }
     getItem(name) {
         return this.#list.get(name);
+    }
+    isEmpty() {
+        return this.#list.size == 0;
     }
 }
