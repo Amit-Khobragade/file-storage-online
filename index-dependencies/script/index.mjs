@@ -1,5 +1,6 @@
 import uploadModule from "../../upload-file-module/script/module.mjs";
 import newFolderModule from "../../new-folder-module/script/module.mjs";
+import deleteModule from "../../delete-module/script/module.mjs";
 
 const mainHandlerObject = (function () {
     const home = new Folder("home", null);
@@ -134,6 +135,37 @@ const backHandlerObject = (function () {
             }
         });
 })();
+
+const deleteHandlerObject = (function () {
+    const btn = mainHandlerObject.ctrls.querySelector("#delete-btn");
+    deleteModule.deletePrompt.classList.toggle(invisibleClass);
+    btn.addEventListener("click", () => {
+        if (mainHandlerObject.currentFolder.isEmpty()) {
+            alert("nothing to delete");
+            return;
+        }
+
+        deleteModule.clearList();
+        deleteModule.deletePrompt.classList.toggle(invisibleClass);
+        toggleShade();
+        [...mainHandlerObject.currentFolder.names].forEach((elem) => {
+            deleteModule.addElement(elem);
+        });
+    });
+    document.addEventListener(deleteModule.submitEvent.type, () => {
+        toggleShade();
+        deleteModule.deletePrompt.classList.toggle(invisibleClass);
+        deleteModule.getSelected().forEach((elem) => {
+            mainHandlerObject.currentFolder.deleteItem(elem.value);
+        });
+        mainHandlerObject.updateView();
+    });
+    document.addEventListener(deleteModule.cancelEvent.type, () => {
+        toggleShade();
+        deleteModule.deletePrompt.classList.toggle(invisibleClass);
+    });
+})();
+
 // *========================================
 // *========= listener for shade ===========
 
@@ -142,5 +174,7 @@ shade.addEventListener("click", (e) => {
         document.dispatchEvent(uploadModule.closeEvent);
     } else if (newFolderModule.isVisible()) {
         document.dispatchEvent(newFolderModule.cancelEvent);
+    } else if (deleteModule.isVisible()) {
+        document.dispatchEvent(deleteModule.cancelEvent);
     }
 });
