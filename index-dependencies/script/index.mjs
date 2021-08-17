@@ -4,10 +4,16 @@ import deleteModule from "../../delete-module/script/module.mjs";
 
 const mainHandlerObject = (function () {
     const home = new Folder("home", null);
-    var currentFolder = home;
     var view = document.getElementById("view");
     const ctrls = document.getElementById("ctrls");
 
+    var returnableObject = {
+        ctrls: ctrls,
+        currentFolder: home,
+        addToDir: addToDir,
+        goBackFolder: setCurrentFolderToPrevFolder,
+        updateView: updateView,
+    };
     toggleShade();
 
     // * =============================================
@@ -15,9 +21,9 @@ const mainHandlerObject = (function () {
 
     function addToDir(type, obj) {
         if (obj instanceof Folder) {
-            currentFolder.insertItem(obj.name, obj);
+            returnableObject.currentFolder.insertItem(obj.name, obj);
         } else {
-            currentFolder.insertItem(obj.name, obj);
+            returnableObject.currentFolder.insertItem(obj.name, obj);
         }
         var newh1 = createh1(`${type} : ${obj.name}`);
         newh1.addEventListener("click", (e) => {
@@ -35,8 +41,9 @@ const mainHandlerObject = (function () {
     }
 
     function setCurrentFolderToPrevFolder() {
-        if (currentFolder.getPreviousFolder()) {
-            currentFolder = currentFolder.getPreviousFolder();
+        if (returnableObject.currentFolder.getPreviousFolder()) {
+            returnableObject.currentFolder =
+                returnableObject.currentFolder.getPreviousFolder();
             return true;
         } else {
             return false;
@@ -46,7 +53,7 @@ const mainHandlerObject = (function () {
     function openFolder(item) {
         if (!item instanceof Folder) return;
 
-        currentFolder = item;
+        returnableObject.currentFolder = item;
         updateView();
     }
 
@@ -54,18 +61,13 @@ const mainHandlerObject = (function () {
         while (view.firstChild) {
             view.removeChild(view.firstChild);
         }
-        [...currentFolder.list].forEach((val) => {
+        [...returnableObject.currentFolder.list].forEach((val) => {
             if (val instanceof Folder) addToDir("folder", val);
             else addToDir("file", val);
         });
     }
-    return {
-        ctrls: ctrls,
-        currentFolder: currentFolder,
-        addToDir: addToDir,
-        goBackFolder: setCurrentFolderToPrevFolder,
-        updateView: updateView,
-    };
+
+    return returnableObject;
 })();
 
 const uploadHandlerObject = (function () {
