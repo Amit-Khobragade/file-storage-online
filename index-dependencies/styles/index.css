@@ -253,4 +253,10 @@ body {
   width: 55%;
 }
 
+@media screen and (max-width: 400px) {
+  #view {
+    justify-content: space-evenly;
+  }
+}
+
 /*# sourceMappingURL=index.css.map */
