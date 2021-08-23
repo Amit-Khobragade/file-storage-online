@@ -28,6 +28,7 @@ body
     padding: 5px
     transition: all 500ms linear
     cursor: pointer
+    position: relative
 
     & img
         width: 100%
@@ -36,6 +37,16 @@ body
     &:hover
         transform: scale(1.1)
         background: rgb(200, 200, 200)
+
+        &::after
+            content: 'Search'
+            position: absolute
+            bottom: -25px
+            background: grey
+            padding: 5px
+            width: max-content
+            font-size: 0.75rem
+            border: 1px solid black
 
 #main
     display: grid

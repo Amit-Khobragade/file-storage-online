@@ -197,6 +197,7 @@ body {
   padding: 5px;
   transition: all 500ms linear;
   cursor: pointer;
+  position: relative;
 }
 #search img {
   width: 100%;
@@ -205,6 +206,16 @@ body {
 #search:hover {
   transform: scale(1.1);
   background: #c8c8c8;
+}
+#search:hover::after {
+  content: "Search";
+  position: absolute;
+  bottom: -25px;
+  background: grey;
+  padding: 5px;
+  width: max-content;
+  font-size: 0.75rem;
+  border: 1px solid black;
 }
 
 #main {
