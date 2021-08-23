@@ -19,14 +19,24 @@ const mainHandlerObject = (function () {
     // * =============================================
     // *============== functions =====================
 
-    function addToDir(type, obj) {
+    function addToDir(obj) {
+        var viewItem = document.createElement("div");
+        var itemName = document.createElement("p");
+        var itemImg = document.createElement("img");
+        viewItem.classList.add("view-item");
+        itemName.append(document.createTextNode(obj.name));
         if (obj instanceof Folder) {
+            itemImg.src = "./images/folder-1.svg";
+            itemImg.alt = "folder";
             returnableObject.currentFolder.insertItem(obj.name, obj);
         } else {
+            viewItem.classList.add("file");
+            itemImg.src = "./images/file.svg";
+            itemImg.alt = "file";
             returnableObject.currentFolder.insertItem(obj.name, obj);
         }
-        var newh1 = createh1(`${type} : ${obj.name}`);
-        newh1.addEventListener("click", (e) => {
+        viewItem.append(itemImg, itemName);
+        viewItem.addEventListener("click", (e) => {
             if (obj instanceof Folder) {
                 openFolder(obj);
             } else {
@@ -37,7 +47,7 @@ const mainHandlerObject = (function () {
                 newA.click();
             }
         });
-        view.appendChild(newh1);
+        view.appendChild(viewItem);
     }
 
     function setCurrentFolderToPrevFolder() {
@@ -62,8 +72,8 @@ const mainHandlerObject = (function () {
             view.removeChild(view.firstChild);
         }
         [...returnableObject.currentFolder.list].forEach((val) => {
-            if (val instanceof Folder) addToDir("folder", val);
-            else addToDir("file", val);
+            if (val instanceof Folder) addToDir(val);
+            else addToDir(val);
         });
     }
 
@@ -86,7 +96,7 @@ const uploadHandlerObject = (function () {
     document.addEventListener(uploadModule.addEvent.type, (e) => {
         uploadPrompt.classList.toggle(invisibleClass);
         uploadModule.getInputFiles().forEach((val) => {
-            mainHandlerObject.addToDir("file", val);
+            mainHandlerObject.addToDir(val);
         });
         toggleShade();
         uploadModule.clearInputStream();
@@ -105,7 +115,6 @@ const folderHandlerObject = (function () {
         toggleShade();
         newFolderModule.folderForm.classList.toggle(invisibleClass);
         mainHandlerObject.addToDir(
-            "folder",
             new Folder(
                 newFolderModule.getFolderName(),
                 mainHandlerObject.currentFolder
