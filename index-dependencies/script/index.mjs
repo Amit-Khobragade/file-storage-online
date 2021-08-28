@@ -20,6 +20,16 @@ const mainHandlerObject = (function () {
     // *============== functions =====================
 
     function addToDir(obj) {
+        if (
+            [...returnableObject.currentFolder.names].indexOf(
+                obj.name.trim()
+            ) != -1 ||
+            !obj.name ||
+            obj.name.trim().length == 0
+        ) {
+            alert("invalid folder name");
+            return;
+        }
         var viewItem = document.createElement("div");
         var itemName = document.createElement("p");
         var itemImg = document.createElement("img");
@@ -128,7 +138,7 @@ const folderHandlerObject = (function () {
         newFolderModule.clearInput();
     });
     mainHandlerObject.ctrls
-        .querySelector("#add-btn")
+        .querySelector("#folder-btn")
         .addEventListener("click", () => {
             toggleShade();
             newFolderModule.folderForm.classList.toggle(invisibleClass);
@@ -177,6 +187,13 @@ const deleteHandlerObject = (function () {
     });
 })();
 
+const searchHandlerObject = (function () {
+    const searchBtn = document.querySelector("#search");
+    searchBtn.addEventListener("focus", () => {
+        toggleShade();
+    });
+})();
+
 // *========================================
 // *========= listener for shade ===========
 
@@ -187,5 +204,7 @@ shade.addEventListener("click", (e) => {
         document.dispatchEvent(newFolderModule.cancelEvent);
     } else if (deleteModule.isVisible()) {
         document.dispatchEvent(deleteModule.cancelEvent);
+    } else {
+        toggleShade();
     }
 });
