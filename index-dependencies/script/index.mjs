@@ -6,6 +6,7 @@ const mainHandlerObject = (function () {
     const home = new Folder("home", null);
     var view = document.getElementById("view");
     const ctrls = document.getElementById("ctrls");
+    var checkUpdateFlag = false; //true if update view is calling the functions
 
     var returnableObject = {
         ctrls: ctrls,
@@ -21,11 +22,12 @@ const mainHandlerObject = (function () {
 
     function addToDir(obj) {
         if (
-            [...returnableObject.currentFolder.names].indexOf(
+            !checkUpdateFlag &&
+            ([...returnableObject.currentFolder.names].indexOf(
                 obj.name.trim()
             ) != -1 ||
-            !obj.name ||
-            obj.name.trim().length == 0
+                !obj.name ||
+                obj.name.trim().length == 0)
         ) {
             alert("invalid folder name");
             return;
@@ -78,6 +80,7 @@ const mainHandlerObject = (function () {
     }
 
     function updateView() {
+        checkUpdateFlag = true;
         while (view.firstChild) {
             view.removeChild(view.firstChild);
         }
@@ -85,6 +88,7 @@ const mainHandlerObject = (function () {
             if (val instanceof Folder) addToDir(val);
             else addToDir(val);
         });
+        checkUpdateFlag = false;
     }
 
     return returnableObject;
