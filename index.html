@@ -6,11 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index-dependencies/styles/index.css">
+
     <script src="./global/script/global.js" defer></script>
     <script src="./Data/folder.js" defer></script>
-    <script src="./upload-file-module/script/module.mjs" defer type="module"></script>
-    <script src="./delete-module/script/module.mjs" defer type="module"></script>
-    <script src="./new-folder-module/module.mjs" defer type="module"></script>
     <script src="./index-dependencies/script/index.mjs" defer type="module"></script>
     <title>Documents</title>
 </head>
@@ -18,9 +16,6 @@
 <body style="visibility: hidden;">
     <header id="top-bar">
         <h1>site name</h1>
-        <!-- <div id="search">
-            <img src="./images/search.svg" alt="search"></img>
-        </div> -->
         <input type="search" id="search">
         <div id="contact-btn" class="btn">contact us</div>
     </header>
@@ -29,7 +24,7 @@
         <section id="ctrls">
             <div class="btn" id="back-btn">back</div>
             <div class="btn" id="delete-btn">delete</div>
-            <div class="btn" id="add-btn">add folder</div>
+            <div class="btn" id="folder-btn">add folder</div>
             <div class="btn" id="upload-btn">upload files</div>
         </section>
         <article id="view">
