@@ -1,6 +1,6 @@
-import uploadModule from "../../upload-file-module/script/module.mjs";
-import newFolderModule from "../../new-folder-module/script/module.mjs";
-import deleteModule from "../../delete-module/script/module.mjs";
+import uploadModule from "../../modules/upload-file-module/script/module.mjs";
+import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
+import deleteModule from "../../modules/delete-module/script/module.mjs";
 
 const mainHandlerObject = (function () {
     const home = new Folder("home", null);
