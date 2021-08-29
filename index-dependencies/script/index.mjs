@@ -6,7 +6,6 @@ const mainHandlerObject = (function () {
     const home = new Folder("home", null);
     var view = document.getElementById("view");
     const ctrls = document.getElementById("ctrls");
-    var checkUpdateFlag = false; //true if update view is calling the functions
 
     var returnableObject = {
         ctrls: ctrls,
@@ -22,16 +21,20 @@ const mainHandlerObject = (function () {
 
     function addToDir(obj) {
         if (
-            !checkUpdateFlag &&
-            ([...returnableObject.currentFolder.names].indexOf(
+            [...returnableObject.currentFolder.names].indexOf(
                 obj.name.trim()
             ) != -1 ||
-                !obj.name ||
-                obj.name.trim().length == 0)
+            !obj.name ||
+            obj.name.trim().length == 0
         ) {
             alert("invalid folder name");
             return;
         }
+        addViewableChild(obj);
+        returnableObject.currentFolder.insertItem(obj.name, obj);
+    }
+
+    function addViewableChild(obj) {
         var viewItem = document.createElement("div");
         var itemName = document.createElement("p");
         var itemImg = document.createElement("img");
@@ -40,12 +43,10 @@ const mainHandlerObject = (function () {
         if (obj instanceof Folder) {
             itemImg.src = "./images/folder-1.svg";
             itemImg.alt = "folder";
-            returnableObject.currentFolder.insertItem(obj.name, obj);
         } else {
             viewItem.classList.add("file");
             itemImg.src = "./images/file.svg";
             itemImg.alt = "file";
-            returnableObject.currentFolder.insertItem(obj.name, obj);
         }
         viewItem.append(itemImg, itemName);
         viewItem.addEventListener("click", (e) => {
@@ -80,15 +81,12 @@ const mainHandlerObject = (function () {
     }
 
     function updateView() {
-        checkUpdateFlag = true;
         while (view.firstChild) {
             view.removeChild(view.firstChild);
         }
         [...returnableObject.currentFolder.list].forEach((val) => {
-            if (val instanceof Folder) addToDir(val);
-            else addToDir(val);
+            addViewableChild(val);
         });
-        checkUpdateFlag = false;
     }
 
     return returnableObject;
