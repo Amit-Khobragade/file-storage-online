@@ -194,6 +194,9 @@ const searchHandlerObject = (function () {
     searchBtn.addEventListener("focus", () => {
         toggleShade();
     });
+    searchBtn.addEventListener("click", () => {
+        searchBtn.value = "";
+    });
 })();
 
 // *========================================
