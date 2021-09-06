@@ -191,11 +191,10 @@ const deleteHandlerObject = (function () {
 })();
 
 const searchHandlerObject = (function () {
-    const search = document.getElementById("search");
-    document.addEventListener(searchModule.cancelEvent.type, () => {
-        search.classList.toggle("expanded");
-        toggleShade();
-    });
+    document.addEventListener(
+        searchModule.cancelEvent.type,
+        searchModule.toggleVisibility
+    );
 })();
 
 // *========================================
