@@ -1,6 +1,7 @@
 import uploadModule from "../../modules/upload-file-module/script/module.mjs";
 import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
 import deleteModule from "../../modules/delete-module/script/module.mjs";
+import searchModule from "../../modules/search-module/script/module.mjs";
 
 const mainHandlerObject = (function () {
     const home = new Folder("home", null);
@@ -190,12 +191,10 @@ const deleteHandlerObject = (function () {
 })();
 
 const searchHandlerObject = (function () {
-    const searchBtn = document.querySelector("#search");
-    searchBtn.addEventListener("focus", () => {
+    const search = document.getElementById("search");
+    document.addEventListener(searchModule.cancelEvent.type, () => {
+        search.classList.toggle("expanded");
         toggleShade();
-    });
-    searchBtn.addEventListener("click", () => {
-        searchBtn.value = "";
     });
 })();
 
@@ -209,6 +208,8 @@ shade.addEventListener("click", (e) => {
         document.dispatchEvent(newFolderModule.cancelEvent);
     } else if (deleteModule.isVisible()) {
         document.dispatchEvent(deleteModule.cancelEvent);
+    } else if (searchModule.isVisible()) {
+        document.dispatchEvent(searchModule.cancelEvent);
     } else {
         toggleShade();
     }
