@@ -197,7 +197,7 @@ body {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  padding: 5px;
+  padding: 0.25rem 0 0.25rem 2rem;
   transition: all 500ms linear, border-radius 500ms 300ms linear;
   cursor: pointer;
   position: relative;
@@ -219,10 +219,12 @@ body {
 #search:focus {
   width: 50%;
   background-position-x: 0.25rem;
-  padding: 0.25rem 0 0.25rem 2rem;
   transition: all 500ms 200ms linear, border-radius 500ms linear;
   border-radius: 4px;
   z-index: 3;
+}
+#search:placeholder {
+  padding: 0.25rem 0 0.25rem 2rem;
 }
 
 #main {

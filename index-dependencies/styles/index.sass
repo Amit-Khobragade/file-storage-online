@@ -28,7 +28,7 @@ body
     width: 2rem
     height: 2rem
     border-radius: 50%
-    padding: 5px
+    padding: .25rem 0 0.25rem 2rem
     transition: all 500ms linear, border-radius 500ms 300ms linear
     cursor: pointer
     position: relative
@@ -50,10 +50,12 @@ body
     &:focus
         width: 50%
         background-position-x: 0.25rem
-        padding: .25rem 0 0.25rem 2rem
         transition: all 500ms 200ms linear, border-radius 500ms linear
         border-radius: global.$radius
         z-index: 3
+
+    &:placeholder
+        padding: .25rem 0 0.25rem 2rem
 
 #main
     display: grid
