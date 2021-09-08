@@ -1,3 +1,4 @@
+import Folder from "../../Data/folder.mjs";
 import uploadModule from "../../modules/upload-file-module/script/module.mjs";
 import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
 import deleteModule from "../../modules/delete-module/script/module.mjs";
