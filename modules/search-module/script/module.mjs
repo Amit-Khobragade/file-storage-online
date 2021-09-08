@@ -3,6 +3,14 @@ const searchModule = (function () {
     const searchBtn = document.getElementById("search");
     const searchResults = document.getElementById("search-results");
     searchBtn.addEventListener("click", toggleVisibility);
+    searchBtn.addEventListener("change", () => {
+        clearSearchResults();
+    });
+    function clearSearchResults() {
+        while (searchResults.hasChildNodes()) {
+            searchResults.firstElementChild.remove();
+        }
+    }
     function isVisible() {
         return searchBtn.classList.contains("expanded");
     }
