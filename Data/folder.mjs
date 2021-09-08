@@ -1,4 +1,4 @@
-class Folder {
+export default class Folder {
     #previousFolder = null;
     #list = new Map();
     name = "";
@@ -25,6 +25,9 @@ class Folder {
     }
     get list() {
         return this.#list.values();
+    }
+    get map() {
+        return new Map(this.#list);
     }
     getItem(name) {
         return this.#list.get(name);
