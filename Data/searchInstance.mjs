@@ -1,17 +1,19 @@
-import Folder from "./folder";
+import Folder from "./folder.mjs";
 
 export default class SearchInstance {
     #folder = null;
     #stopFlag = false;
     #name = null;
     #result = [];
-    constructor(folder, name) {
+    #funcObj = null;
+    constructor(folder, name, funcObj) {
         if (!folder instanceof Folder || !name instanceof String) {
             throw "invalid folder in search input";
         }
 
         this.#folder = folder;
         this.#name = name;
+        this.#funcObj = funcObj;
     }
 
     startSearch() {
@@ -32,11 +34,14 @@ export default class SearchInstance {
             if (this.#stopFlag) {
                 break;
             }
-            if (name === toSearch) {
+            if (name.includes(toSearch)) {
                 this.#result.push([name, obj]);
+                if (this.#funcObj != null) {
+                    this.#funcObj(obj);
+                }
             }
 
-            if (obj instanceof folder) {
+            if (obj instanceof Folder) {
                 this.#searchInFolder(obj, toSearch);
             }
         }
