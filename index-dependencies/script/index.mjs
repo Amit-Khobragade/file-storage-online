@@ -17,6 +17,7 @@ const mainHandlerObject = (function () {
         updateView: updateView,
     };
     toggleShade();
+    searchModule.currentFolder = home;
 
     // * =============================================
     // *============== functions =====================
@@ -67,7 +68,7 @@ const mainHandlerObject = (function () {
 
     function setCurrentFolderToPrevFolder() {
         if (returnableObject.currentFolder.getPreviousFolder()) {
-            returnableObject.currentFolder =
+            searchModule.currentFolder = returnableObject.currentFolder =
                 returnableObject.currentFolder.getPreviousFolder();
             return true;
         } else {
@@ -78,7 +79,7 @@ const mainHandlerObject = (function () {
     function openFolder(item) {
         if (!item instanceof Folder) return;
 
-        returnableObject.currentFolder = item;
+        searchModule.currentFolder = returnableObject.currentFolder = item;
         updateView();
     }
 
