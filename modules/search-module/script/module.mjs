@@ -65,12 +65,12 @@ const searchModule = (function () {
         searchResults.append(viewItem);
     }
     function isVisible() {
-        return searchBtn.classList.contains("expanded");
+        return !searchBtn.classList.contains(invisibleClass);
     }
     function toggleVisibility() {
         clearSearchResults();
         toggleShade();
-        searchBtn.classList.toggle("expanded");
+        searchBtn.classList.toggle(invisibleClass);
         searchBtn.value = "";
         searchResults.classList.toggle(invisibleClass);
     }
