@@ -48,7 +48,8 @@ const uploadModule = (function () {
                 field.removeChild(field.firstChild);
             }
             list.forEach((file) => {
-                var h1 = createh1(`\u001C ${file.name}`);
+                var h1 = document.createElement("h1");
+                h1.append(document.createTextNode(file.name));
                 field.prepend(h1);
             });
         }
