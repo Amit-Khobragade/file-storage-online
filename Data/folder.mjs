@@ -20,6 +20,12 @@ export default class Folder {
     deleteItem(name) {
         this.#list.delete(name);
     }
+    get previousFolder() {
+        return this.#previousFolder;
+    }
+    set previousFolder(previousFolder) {
+        this.#previousFolder = previousFolder;
+    }
     get names() {
         return this.#list.keys();
     }
