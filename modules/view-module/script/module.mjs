@@ -1,11 +1,58 @@
 import Folder from "../../../Data/folder.mjs";
 
-const obj = {
+const viewHandler = {
     currentFolder: new Folder("home", null),
-    gotoLastFolder: openFolder.bind(this.currentFolder.previousFolder),
+    gotoLastFolder: gotoLastFolder,
+    openFolder: openFolder,
+    addToView: addToDir,
 };
 
 const viewBox = document.getElementById("view");
+
+function openFolder(folder) {
+    if (!folder instanceof Folder) {
+        console.error("openFolder argument is not a folder");
+        return;
+    }
+
+    clearView();
+    viewHandler.currentFolder = folder;
+    folder.list.forEach((element) =>
+        viewBox.append(viewableObjectCreator(element))
+    );
+}
+
+function addToDir(obj) {
+    if (
+        [...viewHandler.currentFolder.names].indexOf(obj.name.trim()) != -1 ||
+        !obj.name ||
+        obj.name.trim().length == 0
+    ) {
+        alert("invalid folder name");
+        return;
+    }
+    if (obj instanceof Folder) {
+        obj.previousFolder = viewHandler.currentFolder;
+    }
+    viewBox.append(viewableObjectCreator(obj));
+    viewHandler.currentFolder.insertItem(obj.name, obj);
+}
+
+function gotoLastFolder() {
+    if (!viewHandler.currentFolder.previousFolder) {
+        alert("no previous folder found");
+        return;
+    }
+    openFolder(viewHandler.currentFolder.previousFolder);
+}
+
+//*===================non returnable functions===============
+
+function clearView() {
+    while (viewBox.hasChildNodes()) {
+        viewBox.firstElementChild.remove();
+    }
+}
 
 function viewableObjectCreator(obj) {
     var mainDiv = document.createElement("div");
@@ -33,20 +80,4 @@ function viewableObjectCreator(obj) {
     });
 }
 
-function openFolder(folder) {
-    if (!folder instanceof Folder) {
-        console.error("openFolder argument is not a folder");
-        return;
-    }
-
-    clearView();
-    folder.list.forEach((element) =>
-        viewBox.append(viewableObjectCreator(element))
-    );
-}
-
-function clearView() {
-    while (viewBox.hasChildNodes()) {
-        viewBox.firstElementChild.remove();
-    }
-}
+export default viewHandler;
