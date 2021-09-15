@@ -1,3 +1,4 @@
+import globalObj from "../../../global/script/global.mjs";
 import SearchInstance from "../../../Data/searchInstance.mjs";
 import Folder from "../../../Data/folder.mjs";
 
@@ -65,14 +66,14 @@ const searchModule = (function () {
         searchResults.append(viewItem);
     }
     function isVisible() {
-        return !searchBtn.classList.contains(invisibleClass);
+        return !searchBtn.classList.contains(globalObj.invisibleClass);
     }
     function toggleVisibility() {
         clearSearchResults();
-        toggleShade();
-        searchBtn.classList.toggle(invisibleClass);
+        globalObj.toggleShade();
+        searchBtn.classList.toggle(globalObj.invisibleClass);
         searchBtn.value = "";
-        searchResults.classList.toggle(invisibleClass);
+        searchResults.classList.toggle(globalObj.invisibleClass);
     }
     return searchObj;
 })();

@@ -1,3 +1,5 @@
+import globalObj from "../../../global/script/global.mjs";
+
 const newFolderModule = (function () {
     const submitEvent = new Event("folderSubmit");
     const cancelEvent = new Event("folderCancel");
@@ -11,7 +13,7 @@ const newFolderModule = (function () {
         folderForm.folderName.value = null;
     }
     function isVisible() {
-        return !folderForm.classList.contains(invisibleClass);
+        return !folderForm.classList.contains(globalObj.invisibleClass);
     }
 
     folderForm.add.addEventListener("click", (e) => {

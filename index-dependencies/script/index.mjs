@@ -1,3 +1,4 @@
+import globalObj from "../../global/script/global.mjs";
 import Folder from "../../Data/folder.mjs";
 import uploadModule from "../../modules/upload-file-module/script/module.mjs";
 import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
@@ -16,7 +17,7 @@ const mainHandlerObject = (function () {
         goBackFolder: setCurrentFolderToPrevFolder,
         updateView: updateView,
     };
-    toggleShade();
+    globalObj.toggleShade();
     searchModule.currentFolder = home;
 
     // * =============================================
@@ -97,38 +98,38 @@ const mainHandlerObject = (function () {
 
 const uploadHandlerObject = (function () {
     const uploadPrompt = document.getElementById("upload-module");
-    uploadPrompt.classList.toggle(invisibleClass);
+    uploadPrompt.classList.toggle(globalObj.invisibleClass);
 
     // * =============================================
     // *============= Event Listeners ================
 
     document.addEventListener(uploadModule.closeEvent.type, (e) => {
-        uploadPrompt.classList.toggle(invisibleClass);
-        toggleShade();
+        uploadPrompt.classList.toggle(globalObj.invisibleClass);
+        globalObj.toggleShade();
         uploadModule.clearInputStream();
     });
 
     document.addEventListener(uploadModule.addEvent.type, (e) => {
-        uploadPrompt.classList.toggle(invisibleClass);
+        uploadPrompt.classList.toggle(globalObj.invisibleClass);
         uploadModule.getInputFiles().forEach((val) => {
             mainHandlerObject.addToDir(val);
         });
-        toggleShade();
+        globalObj.toggleShade();
         uploadModule.clearInputStream();
     });
     mainHandlerObject.ctrls
         .querySelector("#upload-btn")
         .addEventListener("click", () => {
-            uploadPrompt.classList.toggle(invisibleClass);
-            toggleShade();
+            uploadPrompt.classList.toggle(globalObj.invisibleClass);
+            globalObj.toggleShade();
         });
 })();
 
 const folderHandlerObject = (function () {
-    newFolderModule.folderForm.classList.toggle(invisibleClass);
+    newFolderModule.folderForm.classList.toggle(globalObj.invisibleClass);
     document.addEventListener(newFolderModule.submitEvent.type, () => {
-        toggleShade();
-        newFolderModule.folderForm.classList.toggle(invisibleClass);
+        globalObj.toggleShade();
+        newFolderModule.folderForm.classList.toggle(globalObj.invisibleClass);
         mainHandlerObject.addToDir(
             new Folder(
                 newFolderModule.getFolderName(),
@@ -138,15 +139,17 @@ const folderHandlerObject = (function () {
         newFolderModule.clearInput();
     });
     document.addEventListener(newFolderModule.cancelEvent.type, () => {
-        toggleShade();
-        newFolderModule.folderForm.classList.toggle(invisibleClass);
+        globalObj.toggleShade();
+        newFolderModule.folderForm.classList.toggle(globalObj.invisibleClass);
         newFolderModule.clearInput();
     });
     mainHandlerObject.ctrls
         .querySelector("#folder-btn")
         .addEventListener("click", () => {
-            toggleShade();
-            newFolderModule.folderForm.classList.toggle(invisibleClass);
+            globalObj.toggleShade();
+            newFolderModule.folderForm.classList.toggle(
+                globalObj.invisibleClass
+            );
         });
 })();
 
@@ -164,7 +167,7 @@ const backHandlerObject = (function () {
 
 const deleteHandlerObject = (function () {
     const btn = mainHandlerObject.ctrls.querySelector("#delete-btn");
-    deleteModule.deletePrompt.classList.toggle(invisibleClass);
+    deleteModule.deletePrompt.classList.toggle(globalObj.invisibleClass);
     btn.addEventListener("click", () => {
         if (mainHandlerObject.currentFolder.isEmpty()) {
             alert("nothing to delete");
@@ -172,23 +175,23 @@ const deleteHandlerObject = (function () {
         }
 
         deleteModule.clearList();
-        deleteModule.deletePrompt.classList.toggle(invisibleClass);
-        toggleShade();
+        deleteModule.deletePrompt.classList.toggle(globalObj.invisibleClass);
+        globalObj.toggleShade();
         [...mainHandlerObject.currentFolder.names].forEach((elem) => {
             deleteModule.addElement(elem);
         });
     });
     document.addEventListener(deleteModule.submitEvent.type, () => {
-        toggleShade();
-        deleteModule.deletePrompt.classList.toggle(invisibleClass);
+        globalObj.toggleShade();
+        deleteModule.deletePrompt.classList.toggle(globalObj.invisibleClass);
         deleteModule.getSelected().forEach((elem) => {
             mainHandlerObject.currentFolder.deleteItem(elem.value);
         });
         mainHandlerObject.updateView();
     });
     document.addEventListener(deleteModule.cancelEvent.type, () => {
-        toggleShade();
-        deleteModule.deletePrompt.classList.toggle(invisibleClass);
+        globalObj.toggleShade();
+        deleteModule.deletePrompt.classList.toggle(globalObj.invisibleClass);
     });
 })();
 
@@ -212,6 +215,6 @@ shade.addEventListener("click", (e) => {
     } else if (searchModule.isVisible()) {
         document.dispatchEvent(searchModule.cancelEvent);
     } else {
-        toggleShade();
+        globalObj.toggleShade();
     }
 });

@@ -1,3 +1,5 @@
+import globalObj from "../../../global/script/global.mjs";
+
 const deleteModule = (function () {
     const deletePrompt = document.getElementById("delete-module");
     const list = deletePrompt.firstElementChild;
@@ -27,7 +29,7 @@ const deleteModule = (function () {
     }
 
     function isVisible() {
-        return !deletePrompt.classList.contains(invisibleClass);
+        return !deletePrompt.classList.contains(globalObj.invisibleClass);
     }
 
     function clearList() {

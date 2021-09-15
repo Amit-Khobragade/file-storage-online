@@ -1,3 +1,5 @@
+import globalObj from "../../../global/script/global.mjs";
+
 const uploadModule = (function () {
     const inpElem = document.getElementById("file-input");
     const field = document.createElement("div");
@@ -33,13 +35,13 @@ const uploadModule = (function () {
 
     function updateFeild() {
         if (list.length == 0 && isFeildActive) {
-            addBtn.classList.add(invisibleClass);
-            uploadMsg.classList.remove(invisibleClass);
+            addBtn.classList.add(globalObj.invisibleClass);
+            uploadMsg.classList.remove(globalObj.invisibleClass);
             field.remove();
             isFeildActive = false;
         } else if (list.length > 0 && !isFeildActive) {
-            addBtn.classList.remove(invisibleClass);
-            uploadMsg.classList.add(invisibleClass);
+            addBtn.classList.remove(globalObj.invisibleClass);
+            uploadMsg.classList.add(globalObj.invisibleClass);
             dropBox.prepend(field);
             isFeildActive = true;
         }
@@ -56,7 +58,9 @@ const uploadModule = (function () {
     }
 
     function isVisible() {
-        return !dropBox.parentElement.classList.contains(invisibleClass);
+        return !dropBox.parentElement.classList.contains(
+            globalObj.invisibleClass
+        );
     }
 
     // *==========================================
