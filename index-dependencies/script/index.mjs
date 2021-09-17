@@ -9,7 +9,6 @@ import searchModule from "../../modules/search-module/script/module.mjs";
 const home = new Folder("home", null);
 const ctrls = document.getElementById("ctrls");
 
-const uploadHandlerObject = (function () {
     const uploadPrompt = document.getElementById("upload-module");
     uploadPrompt.classList.toggle(globalObj.invisibleClass);
 
@@ -22,14 +21,7 @@ const uploadHandlerObject = (function () {
         uploadModule.clearInputStream();
     });
 
-    document.addEventListener(uploadModule.addEvent.type, (e) => {
-        uploadPrompt.classList.toggle(globalObj.invisibleClass);
-        uploadModule.getInputFiles().forEach((val) => {
-            mainHandlerObject.addToDir(val);
-        });
-        globalObj.toggleShade();
-        uploadModule.clearInputStream();
-    });
+    
     mainHandlerObject.ctrls
         .querySelector("#upload-btn")
         .addEventListener("click", () => {
