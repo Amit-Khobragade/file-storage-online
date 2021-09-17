@@ -1,100 +1,13 @@
-import globalObj from "../../global/script/global.mjs";
 import Folder from "../../Data/folder.mjs";
+import viewHandler from "../../modules/view-module/script/module.mjs";
+import globalObj from "../../global/script/global.mjs";
 import uploadModule from "../../modules/upload-file-module/script/module.mjs";
 import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
 import deleteModule from "../../modules/delete-module/script/module.mjs";
 import searchModule from "../../modules/search-module/script/module.mjs";
 
-const mainHandlerObject = (function () {
-    const home = new Folder("home", null);
-    var view = document.getElementById("view");
-    const ctrls = document.getElementById("ctrls");
-
-    var returnableObject = {
-        ctrls: ctrls,
-        currentFolder: home,
-        addToDir: addToDir,
-        goBackFolder: setCurrentFolderToPrevFolder,
-        updateView: updateView,
-    };
-    globalObj.toggleShade();
-    searchModule.currentFolder = home;
-
-    // * =============================================
-    // *============== functions =====================
-
-    function addToDir(obj) {
-        if (
-            [...returnableObject.currentFolder.names].indexOf(
-                obj.name.trim()
-            ) != -1 ||
-            !obj.name ||
-            obj.name.trim().length == 0
-        ) {
-            alert("invalid folder name");
-            return;
-        }
-        addViewableChild(obj);
-        returnableObject.currentFolder.insertItem(obj.name, obj);
-    }
-
-    function addViewableChild(obj) {
-        var viewItem = document.createElement("div");
-        var itemName = document.createElement("p");
-        var itemImg = document.createElement("img");
-        viewItem.classList.add("view-item");
-        itemName.append(document.createTextNode(obj.name));
-        if (obj instanceof Folder) {
-            itemImg.src = "./images/folder-1.svg";
-            itemImg.alt = "folder";
-        } else {
-            viewItem.classList.add("file");
-            itemImg.src = "./images/file.svg";
-            itemImg.alt = "file";
-        }
-        viewItem.append(itemImg, itemName);
-        viewItem.addEventListener("click", (e) => {
-            if (obj instanceof Folder) {
-                openFolder(obj);
-            } else {
-                var newA = document.createElement("a");
-                newA.target = "_blank";
-                newA.href = URL.createObjectURL(obj);
-                newA.style = "display: none";
-                newA.click();
-            }
-        });
-        view.appendChild(viewItem);
-    }
-
-    function setCurrentFolderToPrevFolder() {
-        if (returnableObject.currentFolder.getPreviousFolder()) {
-            searchModule.currentFolder = returnableObject.currentFolder =
-                returnableObject.currentFolder.getPreviousFolder();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function openFolder(item) {
-        if (!item instanceof Folder) return;
-
-        searchModule.currentFolder = returnableObject.currentFolder = item;
-        updateView();
-    }
-
-    function updateView() {
-        while (view.firstChild) {
-            view.removeChild(view.firstChild);
-        }
-        [...returnableObject.currentFolder.list].forEach((val) => {
-            addViewableChild(val);
-        });
-    }
-
-    return returnableObject;
-})();
+const home = new Folder("home", null);
+const ctrls = document.getElementById("ctrls");
 
 const uploadHandlerObject = (function () {
     const uploadPrompt = document.getElementById("upload-module");
