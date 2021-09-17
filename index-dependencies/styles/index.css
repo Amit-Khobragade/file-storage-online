@@ -292,6 +292,10 @@ body {
 .view-item:hover {
   transform: scale(1.1);
 }
+.view-item p {
+  overflow-y: hidden;
+  max-height: 4ch;
+}
 
 .view-item img {
   width: 100%;

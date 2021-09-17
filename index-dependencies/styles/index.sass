@@ -63,13 +63,18 @@ body
     &:hover
         transform: scale(1.1)
 
+    & p
+        overflow-y: hidden
+        max-height: 4ch
+
 .view-item img
     width: 100%
     justify-self: center
 
-.view-item.file img
-    height: 90%
-    width: 55%
+.view-item.file
+    & img
+        height: 90%
+        width: 55%
 
 @media screen and (max-width: 400px)
     #view
