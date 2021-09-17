@@ -170,6 +170,64 @@ h1 {
   padding: 5px;
 }
 
+#search {
+  background: #fff url("../../images/search.svg");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  padding: 0.25rem 0 0.25rem 2rem;
+  transition: all 500ms linear, border-radius 500ms 300ms linear;
+  cursor: pointer;
+  position: relative;
+}
+#search:hover {
+  transform: scale(1.1);
+  background-color: #c8c8c8;
+}
+#search:hover::after {
+  content: "Search";
+  position: absolute;
+  bottom: -25px;
+  background: grey;
+  padding: 5px;
+  width: max-content;
+  font-size: 0.75rem;
+  border: 1px solid black;
+}
+#search.expanded {
+  width: 50%;
+  background-position-x: 0.25rem;
+  transition: all 500ms 200ms linear, border-radius 500ms linear;
+  border-radius: 4px;
+  z-index: 3;
+}
+#search:placeholder {
+  padding: 0.25rem 0 0.25rem 2rem;
+}
+
+#search-results {
+  position: absolute;
+  background: white;
+  display: block;
+  width: 80vw;
+  height: 80vh;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 3px solid black;
+  z-index: 7;
+  visibility: visible;
+  transition: all 500ms linear;
+}
+#search-results.invisible {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
 body {
   display: grid;
   grid-template-columns: 1fr;
@@ -181,20 +239,13 @@ body {
 #top-bar {
   width: 100%;
   height: 100%;
+  position: relative;
   background: #e09238;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
   align-items: center;
-}
-
-#search {
-  width: 2rem;
-  height: 2rem;
-  background: black;
-  border-radius: 100%;
-  padding: 5px;
 }
 
 #main {

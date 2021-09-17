@@ -1,0 +1,58 @@
+@use "../../../global/styles/global" as global
+
+#search
+    background: #fff url("../../images/search.svg")
+    background-size: 20px
+    background-repeat: no-repeat
+    background-position: center
+    width: 2rem
+    height: 2rem
+    border-radius: 50%
+    padding: .25rem 0 0.25rem 2rem
+    transition: all 500ms linear, border-radius 500ms 300ms linear
+    cursor: pointer
+    position: relative
+
+    &:hover
+        transform: scale(1.1)
+        background-color: rgb(200, 200, 200)
+
+        &::after
+            content: 'Search'
+            position: absolute
+            bottom: -25px
+            background: grey
+            padding: 5px
+            width: max-content
+            font-size: 0.75rem
+            border: 1px solid black
+
+    &.expanded
+        width: 50%
+        background-position-x: 0.25rem
+        transition: all 500ms 200ms linear, border-radius 500ms linear
+        border-radius: global.$radius
+        z-index: 3
+
+    &:placeholder
+        padding: .25rem 0 0.25rem 2rem
+
+#search-results
+    position: absolute
+    background: white
+    display: block
+    width: 80vw
+    height: 80vh
+    top: 100%
+    left: 50%
+    transform: translateX(-50%)
+    border: 3px solid black
+    border-radius: 10px
+    z-index: 7
+    visibility: visible
+    transition: all 500ms linear
+
+    &.invisible
+        visibility: hidden
+        height: 0
+        width: 0

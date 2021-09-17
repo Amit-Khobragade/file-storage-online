@@ -1,6 +1,8 @@
-import uploadModule from "../../upload-file-module/script/module.mjs";
-import newFolderModule from "../../new-folder-module/script/module.mjs";
-import deleteModule from "../../delete-module/script/module.mjs";
+import Folder from "../../Data/folder.mjs";
+import uploadModule from "../../modules/upload-file-module/script/module.mjs";
+import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
+import deleteModule from "../../modules/delete-module/script/module.mjs";
+import searchModule from "../../modules/search-module/script/module.mjs";
 
 const mainHandlerObject = (function () {
     const home = new Folder("home", null);
@@ -15,11 +17,27 @@ const mainHandlerObject = (function () {
         updateView: updateView,
     };
     toggleShade();
+    searchModule.currentFolder = home;
 
     // * =============================================
     // *============== functions =====================
 
     function addToDir(obj) {
+        if (
+            [...returnableObject.currentFolder.names].indexOf(
+                obj.name.trim()
+            ) != -1 ||
+            !obj.name ||
+            obj.name.trim().length == 0
+        ) {
+            alert("invalid folder name");
+            return;
+        }
+        addViewableChild(obj);
+        returnableObject.currentFolder.insertItem(obj.name, obj);
+    }
+
+    function addViewableChild(obj) {
         var viewItem = document.createElement("div");
         var itemName = document.createElement("p");
         var itemImg = document.createElement("img");
@@ -28,12 +46,10 @@ const mainHandlerObject = (function () {
         if (obj instanceof Folder) {
             itemImg.src = "./images/folder-1.svg";
             itemImg.alt = "folder";
-            returnableObject.currentFolder.insertItem(obj.name, obj);
         } else {
             viewItem.classList.add("file");
             itemImg.src = "./images/file.svg";
             itemImg.alt = "file";
-            returnableObject.currentFolder.insertItem(obj.name, obj);
         }
         viewItem.append(itemImg, itemName);
         viewItem.addEventListener("click", (e) => {
@@ -52,7 +68,7 @@ const mainHandlerObject = (function () {
 
     function setCurrentFolderToPrevFolder() {
         if (returnableObject.currentFolder.getPreviousFolder()) {
-            returnableObject.currentFolder =
+            searchModule.currentFolder = returnableObject.currentFolder =
                 returnableObject.currentFolder.getPreviousFolder();
             return true;
         } else {
@@ -63,7 +79,7 @@ const mainHandlerObject = (function () {
     function openFolder(item) {
         if (!item instanceof Folder) return;
 
-        returnableObject.currentFolder = item;
+        searchModule.currentFolder = returnableObject.currentFolder = item;
         updateView();
     }
 
@@ -72,8 +88,7 @@ const mainHandlerObject = (function () {
             view.removeChild(view.firstChild);
         }
         [...returnableObject.currentFolder.list].forEach((val) => {
-            if (val instanceof Folder) addToDir(val);
-            else addToDir(val);
+            addViewableChild(val);
         });
     }
 
@@ -128,7 +143,7 @@ const folderHandlerObject = (function () {
         newFolderModule.clearInput();
     });
     mainHandlerObject.ctrls
-        .querySelector("#add-btn")
+        .querySelector("#folder-btn")
         .addEventListener("click", () => {
             toggleShade();
             newFolderModule.folderForm.classList.toggle(invisibleClass);
@@ -177,6 +192,13 @@ const deleteHandlerObject = (function () {
     });
 })();
 
+const searchHandlerObject = (function () {
+    document.addEventListener(
+        searchModule.cancelEvent.type,
+        searchModule.toggleVisibility
+    );
+})();
+
 // *========================================
 // *========= listener for shade ===========
 
@@ -187,5 +209,9 @@ shade.addEventListener("click", (e) => {
         document.dispatchEvent(newFolderModule.cancelEvent);
     } else if (deleteModule.isVisible()) {
         document.dispatchEvent(deleteModule.cancelEvent);
+    } else if (searchModule.isVisible()) {
+        document.dispatchEvent(searchModule.cancelEvent);
+    } else {
+        toggleShade();
     }
 });
