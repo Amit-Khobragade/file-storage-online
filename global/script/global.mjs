@@ -9,7 +9,6 @@ function toggleShade() {
 }
 
 window.addEventListener("load", () => {
-    toggleShade();
     document.body.style.visibility = "visible";
 });
 

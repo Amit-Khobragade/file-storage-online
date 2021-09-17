@@ -5,6 +5,7 @@ const viewHandler = {
     gotoLastFolder: gotoLastFolder,
     openFolder: openFolder,
     addToView: addToDir,
+    viewableObjectCreator: viewableObjectCreator,
 };
 
 const viewBox = document.getElementById("view");
@@ -56,6 +57,7 @@ function clearView() {
 
 function viewableObjectCreator(obj) {
     var mainDiv = document.createElement("div");
+    mainDiv.classList.add("view-item");
     mainDiv.innerHTML =
         `<img class="item-picture" ${(function () {
             if (obj instanceof Folder) {
@@ -78,6 +80,7 @@ function viewableObjectCreator(obj) {
             newA.click();
         }
     });
+    return mainDiv;
 }
 
 export default viewHandler;

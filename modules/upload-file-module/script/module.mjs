@@ -2,29 +2,22 @@ import globalObj from "../../../global/script/global.mjs";
 import viewHandler from "../../view-module/script/module.mjs";
 
 const thisModule = document.getElementById("upload-module");
-const inpElem = thisModule.querySelector("file-input");
+const inpElem = thisModule.querySelector("#file-input");
 const field = document.createElement("div");
 const uploadMsg = inpElem.previousElementSibling;
+const addBtn = thisModule.lastElementChild;
 const dropBox = inpElem.parentElement;
-// * Custom events for clicking on add or closing the prompt
-const closeEvent = new Event("update-Module-Close-Event");
-const changeEvent = new Event("changedItem");
 
 let list = [];
-let isFeildActive = false;
 
 field.classList.add("text-area");
 
 // * =============================================
 // *============== functions =====================
 
-function getInputFiles() {
-    return list;
-}
-
 function clearInputStream() {
     list = [];
-    dropBox.dispatchEvent(changeEvent);
+    changeDropBoxView();
 }
 
 function addToList(inputFiles) {
@@ -33,30 +26,6 @@ function addToList(inputFiles) {
     });
 }
 
-dropBox.addEventListener(changeEvent.type, function () {
-    if (list.length == 0 && isFeildActive) {
-        addBtn.classList.add(globalObj.invisibleClass);
-        uploadMsg.classList.remove(globalObj.invisibleClass);
-        field.remove();
-        isFeildActive = false;
-    } else if (list.length > 0 && !isFeildActive) {
-        addBtn.classList.remove(globalObj.invisibleClass);
-        uploadMsg.classList.add(globalObj.invisibleClass);
-        dropBox.prepend(field);
-        isFeildActive = true;
-    }
-    if (isFeildActive) {
-        while (field.firstChild) {
-            field.removeChild(field.firstChild);
-        }
-        list.forEach((file) => {
-            var h1 = document.createElement("h1");
-            h1.append(document.createTextNode(file.name));
-            field.prepend(h1);
-        });
-    }
-});
-
 function isVisible() {
     return !dropBox.parentElement.classList.contains(globalObj.invisibleClass);
 }
@@ -64,48 +33,66 @@ function isVisible() {
 function toggleVisibility() {
     globalObj.toggleShade();
     thisModule.classList.toggle(globalObj.invisibleClass);
+    clearInputStream();
 }
 
-// *==========================================
-// *================ Events ==================
+function changeDropBoxView() {
+    if (list.length == 0) {
+        addBtn.classList.add(globalObj.invisibleClass);
+        uploadMsg.classList.remove(globalObj.invisibleClass);
+    } else if (list.length > 0) {
+        addBtn.classList.remove(globalObj.invisibleClass);
+        uploadMsg.classList.add(globalObj.invisibleClass);
+    }
+    while (dropBox.firstChild) {
+        if (dropBox.firstChild == uploadMsg) break;
 
-//close event
+        dropBox.firstChild.remove();
+    }
+    list.forEach((file) => {
+        dropBox.prepend(viewHandler.viewableObjectCreator(file));
+    });
+}
+
+// *===================================================
+// *==================== main btns ====================
 thisModule.firstElementChild.addEventListener("click", () =>
-    document.dispatchEvent(closeEvent)
+    uploadModule.toggleVisibility()
 );
 
-thisModule.lastElementChild.addEventListener("click", (e) => {
+addBtn.addEventListener("click", (e) => {
     e.preventDefault();
     list.forEach((element) => {
         viewHandler.addToView(element);
     });
     clearInputStream();
+    toggleVisibility();
 });
 
 dropBox.addEventListener("click", () => inpElem.click());
 
+// *====================================================
+// *======= main events necessary for functioning ======
+
 inpElem.addEventListener("change", (e) => {
     if (inpElem.files.length == 0) return;
     addToList(inpElem);
-    dropBox.dispatchEvent(changeEvent);
+    changeDropBoxView();
 });
 
 dropBox.addEventListener("drop", (e) => {
     e.preventDefault();
     addToList(e.dataTransfer);
-    dropBox.dispatchEvent(changeEvent);
+    changeDropBoxView();
 });
 
-dropBox.addEventListener("dragover", (e) => {
-    e.preventDefault();
-});
+dropBox.addEventListener("dragover", (e) => e.preventDefault());
 
+// *==============================================
+// *================= module object ==============
 const uploadModule = {
-    closeEvent: closeEvent,
-    addEvent: addEvent,
-    getInputFiles: getInputFiles,
-    clearInputStream: clearInputStream,
     isVisible: isVisible,
+    toggleVisibility: toggleVisibility,
 };
 
 export default uploadModule;

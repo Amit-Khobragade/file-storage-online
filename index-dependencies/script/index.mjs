@@ -2,34 +2,23 @@ import Folder from "../../Data/folder.mjs";
 import viewHandler from "../../modules/view-module/script/module.mjs";
 import globalObj from "../../global/script/global.mjs";
 import uploadModule from "../../modules/upload-file-module/script/module.mjs";
-import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
-import deleteModule from "../../modules/delete-module/script/module.mjs";
-import searchModule from "../../modules/search-module/script/module.mjs";
+// import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
+// import deleteModule from "../../modules/delete-module/script/module.mjs";
+// import searchModule from "../../modules/search-module/script/module.mjs";
 
 const home = new Folder("home", null);
 const ctrls = document.getElementById("ctrls");
 
-    const uploadPrompt = document.getElementById("upload-module");
-    uploadPrompt.classList.toggle(globalObj.invisibleClass);
+uploadModule.toggleVisibility();
 
-    // * =============================================
-    // *============= Event Listeners ================
+// * =============================================
+// *============= Event Listeners ================
 
-    document.addEventListener(uploadModule.closeEvent.type, (e) => {
-        uploadPrompt.classList.toggle(globalObj.invisibleClass);
-        globalObj.toggleShade();
-        uploadModule.clearInputStream();
-    });
+ctrls
+    .querySelector("#upload-btn")
+    .addEventListener("click", () => uploadModule.toggleVisibility());
 
-    
-    mainHandlerObject.ctrls
-        .querySelector("#upload-btn")
-        .addEventListener("click", () => {
-            uploadPrompt.classList.toggle(globalObj.invisibleClass);
-            globalObj.toggleShade();
-        });
-})();
-
+/*
 const folderHandlerObject = (function () {
     newFolderModule.folderForm.classList.toggle(globalObj.invisibleClass);
     document.addEventListener(newFolderModule.submitEvent.type, () => {
@@ -106,20 +95,23 @@ const searchHandlerObject = (function () {
         searchModule.toggleVisibility
     );
 })();
+*/
 
 // *========================================
 // *========= listener for shade ===========
 
 shade.addEventListener("click", (e) => {
     if (uploadModule.isVisible()) {
-        document.dispatchEvent(uploadModule.closeEvent);
-    } else if (newFolderModule.isVisible()) {
-        document.dispatchEvent(newFolderModule.cancelEvent);
-    } else if (deleteModule.isVisible()) {
-        document.dispatchEvent(deleteModule.cancelEvent);
-    } else if (searchModule.isVisible()) {
-        document.dispatchEvent(searchModule.cancelEvent);
-    } else {
+        uploadModule.toggleVisibility();
+    }
+    // else if (newFolderModule.isVisible()) {
+    //     document.dispatchEvent(newFolderModule.cancelEvent);
+    // } else if (deleteModule.isVisible()) {
+    //     document.dispatchEvent(deleteModule.cancelEvent);
+    // } else if (searchModule.isVisible()) {
+    //     document.dispatchEvent(searchModule.cancelEvent);
+    // }
+    else {
         globalObj.toggleShade();
     }
 });
