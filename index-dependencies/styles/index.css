@@ -15,7 +15,6 @@ h1 {
 .btn {
   background: #fa1b1b;
   padding: 3px;
-  box-shadow: 0 0 0 3px white, 0 0 0 5px #fa1b1b;
   border-radius: 4px;
   cursor: pointer;
   transition: all 500ms linear;
@@ -23,7 +22,6 @@ h1 {
 }
 .btn:hover {
   transform: scale(1.1, 1.1);
-  box-shadow: 0 0 0 1px white, 0 0 0 3px #fa1b1b;
 }
 
 #shade {
@@ -218,6 +216,7 @@ h1 {
   left: 50%;
   transform: translateX(-50%);
   border: 3px solid black;
+  border-radius: 10px;
   z-index: 7;
   visibility: visible;
   transition: all 500ms linear;
