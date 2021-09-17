@@ -3,14 +3,11 @@ import viewHandler from "../../view-module/script/module.mjs";
 
 const thisModule = document.getElementById("upload-module");
 const inpElem = thisModule.querySelector("#file-input");
-const field = document.createElement("div");
 const uploadMsg = inpElem.previousElementSibling;
 const addBtn = thisModule.lastElementChild;
 const dropBox = inpElem.parentElement;
 
 let list = [];
-
-field.classList.add("text-area");
 
 // * =============================================
 // *============== functions =====================
