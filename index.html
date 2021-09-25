@@ -33,10 +33,10 @@
 
 
     <!-- ! Donot move the shade below others as then you will have to play with z-index -->
-    <div id="shade"></div>
+    <div id="shade" class="invisible"></div>
 
     <!-- *============Upload Module============= -->
-    <section id="upload-module">
+    <section id="upload-module" class="invisible">
         <article class="btn" id="close-btn">close</article>
         <article id="drop-box">
             <h1>drop files here or click here to upload files</h1>
@@ -46,7 +46,7 @@
     </section>
 
     <!-- *===============Folder Form============ -->
-    <form name="folderForm" id="folder-module">
+    <form name="folderForm" id="folder-module" class="invisible">
         <input type="text" name="folderName" id="folder-name" placeholder="Folder Name" required pattern="[a-zA-Z0-9]+"
             oninvalid="this.setCustomValidity('please enter a valid string without any special characters')"
             oninput=" this.setCustomValidity('')">
@@ -61,7 +61,7 @@
     </form>
 
     <!-- *=================delete module============= -->
-    <section id="delete-module">
+    <section id="delete-module" class="invisible">
         <form id="delete-module-list"></form>
         <div id="delete-btn-module">
             <button id="confirm-btn">

@@ -1,18 +1,11 @@
-import Folder from "../../Data/folder.mjs";
 import viewHandler from "../../modules/view-module/script/module.mjs";
 import globalObj from "../../global/script/global.mjs";
 import uploadModule from "../../modules/upload-file-module/script/module.mjs";
 import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
 import deleteModule from "../../modules/delete-module/script/module.mjs";
 import searchModule from "../../modules/search-module/script/module.mjs";
-// import searchModule from "../../modules/search-module/script/module.mjs";
 
 const ctrls = document.getElementById("ctrls");
-
-uploadModule.toggleVisibility();
-newFolderModule.toggleVisibility();
-deleteModule.toggleVisibility();
-// globalObj.toggleShade();
 
 // * =============================================
 // *============= Event Listeners ================
