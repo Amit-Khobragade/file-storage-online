@@ -17,32 +17,7 @@ function clearSearchResults() {
     }
 }
 function addToResults(obj) {
-    var viewItem = document.createElement("div");
-    var itemName = document.createElement("p");
-    var itemImg = document.createElement("img");
-    viewItem.classList.add("view-item");
-    itemName.append(document.createTextNode(obj.name));
-    if (obj instanceof Folder) {
-        itemImg.src = "./images/folder-1.svg";
-        itemImg.alt = "folder";
-    } else {
-        viewItem.classList.add("file");
-        itemImg.src = "./images/file.svg";
-        itemImg.alt = "file";
-    }
-    viewItem.append(itemImg, itemName);
-    viewItem.addEventListener("click", (e) => {
-        if (obj instanceof Folder) {
-            openFolder(obj);
-        } else {
-            var newA = document.createElement("a");
-            newA.target = "_blank";
-            newA.href = URL.createObjectURL(obj);
-            newA.style = "display: none";
-            newA.click();
-        }
-    });
-    searchResults.append(viewItem);
+    searchResults.append(viewHandler.viewableObjectCreator(obj));
 }
 function isVisible() {
     return !searchBtn.classList.contains(globalObj.invisibleClass);
