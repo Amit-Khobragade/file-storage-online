@@ -54,7 +54,7 @@ function toggleVisibility() {
         }
 
         // adds new items
-        [...viewHandler.currentFolder.names].forEach((elem) =>
+        [...viewHandler.currentFolder.nameList].forEach((elem) =>
             addElement(elem)
         );
     }

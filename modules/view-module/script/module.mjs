@@ -44,7 +44,8 @@ function openFolder(folder) {
 function addToDir(obj) {
     // Check if the given folder already exists or has a valid name
     if (
-        [...viewHandler.currentFolder.names].indexOf(obj.name.trim()) != -1 ||
+        [...viewHandler.currentFolder.nameList].indexOf(obj.name.trim()) !=
+            -1 ||
         !obj.name ||
         obj.name.trim().length == 0
     ) {
@@ -68,10 +69,13 @@ function gotoLastFolder() {
     openFolder(viewHandler.currentFolder.previousFolder);
 }
 
-// creates a object which has its styles defined in css
+// creates and returns a object which has its styles defined in css
 function viewableObjectCreator(obj) {
+    // creates a div
     var mainDiv = document.createElement("div");
     mainDiv.classList.add("view-item");
+
+    // gives the div an internal structure
     mainDiv.innerHTML =
         `<img class="item-picture" ${(function () {
             if (obj instanceof Folder) {
@@ -84,6 +88,8 @@ function viewableObjectCreator(obj) {
     mainDiv
         .querySelector(".item-name")
         .append(document.createTextNode(obj.name));
+
+    // added a event listener for onClick
     mainDiv.addEventListener("click", () => {
         if (obj instanceof Folder) openFolder(obj);
         else {
