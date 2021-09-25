@@ -3,7 +3,7 @@ export default class Folder {
     #list = new Map();
     name = "";
 
-    constructor(name, previousFolder) {
+    constructor(name, previousFolder = null) {
         this.name = name;
         this.#previousFolder = previousFolder;
     }

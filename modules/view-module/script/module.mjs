@@ -8,22 +8,41 @@ const viewHandler = {
     viewableObjectCreator: viewableObjectCreator,
 };
 
+/* 
+    The viewBox is the main variable where the changes 
+    in the list and objects are potraied. The viewBox 
+    is linked with the current directory which is open 
+    with the help of various functions.
+*/
 const viewBox = document.getElementById("view");
 
+// *===============================================================
+// *==========================functions============================
+
+// this loads the folder in the view
 function openFolder(folder) {
+    // check if the arg is a folder or not
     if (!folder instanceof Folder) {
         console.error("openFolder argument is not a folder");
         return;
     }
 
-    clearView();
+    // clear the viewBox
+    while (viewBox.firstElementChild) {
+        viewBox.firstElementChild.remove();
+    }
+
+    // set the current folder to the arg and
+    // update the view
     viewHandler.currentFolder = folder;
-    folder.list.forEach((element) =>
+    [...folder.list].forEach((element) =>
         viewBox.append(viewableObjectCreator(element))
     );
 }
 
+// this adds the given file to the viewBox and the currentFolder
 function addToDir(obj) {
+    // Check if the given folder already exists or has a valid name
     if (
         [...viewHandler.currentFolder.names].indexOf(obj.name.trim()) != -1 ||
         !obj.name ||
@@ -32,29 +51,24 @@ function addToDir(obj) {
         alert("invalid folder name");
         return;
     }
-    if (obj instanceof Folder) {
-        obj.previousFolder = viewHandler.currentFolder;
-    }
+
+    // if the object name is valid then add the arg to the viewBox and the currentFolder
     viewBox.append(viewableObjectCreator(obj));
     viewHandler.currentFolder.insertItem(obj.name, obj);
 }
 
+// it opens the previous folder
 function gotoLastFolder() {
+    // check if the the current Folder has a previous folder
     if (!viewHandler.currentFolder.previousFolder) {
         alert("no previous folder found");
         return;
     }
+
     openFolder(viewHandler.currentFolder.previousFolder);
 }
 
-//*===================non returnable functions===============
-
-function clearView() {
-    while (viewBox.hasChildNodes()) {
-        viewBox.firstElementChild.remove();
-    }
-}
-
+// creates a object which has its styles defined in css
 function viewableObjectCreator(obj) {
     var mainDiv = document.createElement("div");
     mainDiv.classList.add("view-item");

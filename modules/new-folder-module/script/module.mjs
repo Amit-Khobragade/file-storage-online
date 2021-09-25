@@ -1,42 +1,51 @@
 import globalObj from "../../../global/script/global.mjs";
+import viewHandler from "../../view-module/script/module.mjs";
+import Folder from "../../../Data/folder.mjs";
 
-const newFolderModule = (function () {
-    const submitEvent = new Event("folderSubmit");
-    const cancelEvent = new Event("folderCancel");
-    var folderForm = document.forms.folderForm;
+var folderForm = document.forms.folderForm;
 
-    function getFolderName() {
-        return folderForm.folderName.value;
+// *===============================================
+// *================ functions ====================
+function getFolderName() {
+    return folderForm.folderName.value;
+}
+
+function clearInput() {
+    folderForm.folderName.value = null;
+}
+
+function isVisible() {
+    return !folderForm.classList.contains(globalObj.invisibleClass);
+}
+
+function toggleVisibility() {
+    globalObj.toggleShade();
+    folderForm.classList.toggle(globalObj.invisibleClass);
+    clearInput();
+}
+
+// *===============================================================
+// *========================== Event Listeners ====================
+
+folderForm.add.addEventListener("click", (e) => {
+    if (
+        folderForm.folderName.value.trim() === "" &&
+        folderForm.checkValidity()
+    ) {
+        alert("invalid input");
+        return;
     }
+    viewHandler.addToView(
+        new Folder(getFolderName(), viewHandler.currentFolder)
+    );
+    toggleVisibility();
+});
 
-    function clearInput() {
-        folderForm.folderName.value = null;
-    }
-    function isVisible() {
-        return !folderForm.classList.contains(globalObj.invisibleClass);
-    }
+folderForm.cancel.addEventListener("click", (e) => toggleVisibility());
 
-    folderForm.add.addEventListener("click", (e) => {
-        if (
-            folderForm.folderName.value.trim() === "" &&
-            folderForm.checkValidity()
-        ) {
-            alert("invalid input");
-            return;
-        }
-        document.dispatchEvent(submitEvent);
-    });
-    folderForm.cancel.addEventListener("click", (e) => {
-        document.dispatchEvent(cancelEvent);
-    });
-    return {
-        folderForm: folderForm,
-        submitEvent: submitEvent,
-        cancelEvent: cancelEvent,
-        getFolderName: getFolderName,
-        isVisible: isVisible,
-        clearInput: clearInput,
-    };
-})();
+const newFolderModule = {
+    toggleVisibility: toggleVisibility,
+    isVisible: isVisible,
+};
 
 export default newFolderModule;
