@@ -4,6 +4,7 @@ import globalObj from "../../global/script/global.mjs";
 import uploadModule from "../../modules/upload-file-module/script/module.mjs";
 import newFolderModule from "../../modules/new-folder-module/script/module.mjs";
 import deleteModule from "../../modules/delete-module/script/module.mjs";
+import searchModule from "../../modules/search-module/script/module.mjs";
 // import searchModule from "../../modules/search-module/script/module.mjs";
 
 const ctrls = document.getElementById("ctrls");
@@ -32,18 +33,6 @@ ctrls
     .querySelector("#delete-btn")
     .addEventListener("click", () => deleteModule.toggleVisibility());
 
-// !============== module barrier ==========================
-
-/*
-
-const searchHandlerObject = (function () {
-    document.addEventListener(
-        searchModule.cancelEvent.type,
-        searchModule.toggleVisibility
-    );
-})();
-*/
-
 // *========================================
 // *========= listener for shade ===========
 
@@ -54,11 +43,9 @@ shade.addEventListener("click", (e) => {
         newFolderModule.toggleVisibility();
     } else if (deleteModule.isVisible()) {
         deleteModule.toggleVisibility();
-    }
-    // else if (searchModule.isVisible()) {
-    //     document.dispatchEvent(searchModule.cancelEvent);
-    // }
-    else {
+    } else if (searchModule.isVisible()) {
+        searchModule.toggleVisibility();
+    } else {
         globalObj.toggleShade();
     }
 });

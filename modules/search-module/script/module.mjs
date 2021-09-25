@@ -60,8 +60,8 @@ function toggleVisibility() {
 searchBtn.addEventListener("click", toggleVisibility);
 searchBtn.addEventListener("input", () => {
     if (
-        !searchObj.currentFolder ||
-        !searchObj.currentFolder instanceof SearchInstance
+        !viewHandler.currentFolder ||
+        !viewHandler.currentFolder instanceof SearchInstance
     ) {
         throw "current folder not set in search";
     }
@@ -70,16 +70,14 @@ searchBtn.addEventListener("input", () => {
         searchInstance.stop();
     }
     searchInstance = new SearchInstance(
-        searchObj.currentFolder,
+        viewHandler.currentFolder,
         searchBtn.value,
         addToResults
     );
     searchInstance.startSearch();
 });
 
-const searchObj = {
-    cancelEvent: cancelEvent,
-    currentFolder: null,
+const searchModule = {
     isVisible: isVisible,
     toggleVisibility: toggleVisibility,
 };
