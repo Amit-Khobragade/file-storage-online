@@ -4,14 +4,16 @@
     background: #fff url("../../images/search.svg")
     background-size: 20px
     background-repeat: no-repeat
-    background-position: center
-    width: 2rem
     height: 2rem
-    border-radius: 50%
     padding: .25rem 0 0.25rem 2rem
-    transition: all 500ms linear, border-radius 500ms 300ms linear
     cursor: pointer
     position: relative
+    width: 50%
+    background-position-y: center
+    background-position-x: 0.25rem
+    transition: all 500ms 200ms linear, border-radius 500ms linear
+    border-radius: global.$radius
+    z-index: 3
 
     &:hover
         transform: scale(1.1)
@@ -27,12 +29,12 @@
             font-size: 0.75rem
             border: 1px solid black
 
-    &.expanded
-        width: 50%
-        background-position-x: 0.25rem
-        transition: all 500ms 200ms linear, border-radius 500ms linear
-        border-radius: global.$radius
-        z-index: 3
+    &.invisible
+        display: block
+        width: 2rem
+        border-radius: 50%
+        background-position-x: center
+        transition: all 500ms linear, border-radius 500ms 300ms linear
 
     &:placeholder
         padding: .25rem 0 0.25rem 2rem

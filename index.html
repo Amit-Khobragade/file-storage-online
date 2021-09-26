@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index-dependencies/styles/index.css">
 
-    <script src="./global/script/global.js" defer></script>
     <script src="./index-dependencies/script/index.mjs" defer type="module"></script>
     <title>Documents</title>
 </head>
@@ -15,7 +14,7 @@
 <body style="visibility: hidden;">
     <header id="top-bar">
         <h1>site name</h1>
-        <input type="search" id="search" placeholder="search" autocomplete="off">
+        <input type="search" id="search" placeholder="search" autocomplete="off" class="invisible">
         <div id="contact-btn" class="btn">contact us</div>
         <div id="search-results" class="invisible"></div>
     </header>
@@ -34,10 +33,10 @@
 
 
     <!-- ! Donot move the shade below others as then you will have to play with z-index -->
-    <div id="shade"></div>
+    <div id="shade" class="invisible"></div>
 
     <!-- *============Upload Module============= -->
-    <section id="upload-module">
+    <section id="upload-module" class="invisible">
         <article class="btn" id="close-btn">close</article>
         <article id="drop-box">
             <h1>drop files here or click here to upload files</h1>
@@ -47,7 +46,7 @@
     </section>
 
     <!-- *===============Folder Form============ -->
-    <form name="folderForm" id="folder-module">
+    <form name="folderForm" id="folder-module" class="invisible">
         <input type="text" name="folderName" id="folder-name" placeholder="Folder Name" required pattern="[a-zA-Z0-9]+"
             oninvalid="this.setCustomValidity('please enter a valid string without any special characters')"
             oninput=" this.setCustomValidity('')">
@@ -61,8 +60,8 @@
         </div>
     </form>
 
-    <!-- *===================delete btn============= -->
-    <section id="delete-module">
+    <!-- *=================delete module============= -->
+    <section id="delete-module" class="invisible">
         <form id="delete-module-list"></form>
         <div id="delete-btn-module">
             <button id="confirm-btn">
