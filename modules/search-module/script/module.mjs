@@ -1,9 +1,7 @@
 import globalObj from "../../../global/script/global.mjs";
 import SearchInstance from "../../../Data/searchInstance.mjs";
-import Folder from "../../../Data/folder.mjs";
 import viewHandler from "../../view-module/script/module.mjs";
 
-const cancelEvent = new Event("searchClosed");
 const searchBtn = document.getElementById("search");
 const searchResults = document.getElementById("search-results");
 var searchInstance = null;
@@ -16,12 +14,15 @@ function clearSearchResults() {
         searchResults.firstElementChild.remove();
     }
 }
+
 function addToResults(obj) {
     searchResults.append(viewHandler.viewableObjectCreator(obj));
 }
+
 function isVisible() {
     return !searchBtn.classList.contains(globalObj.invisibleClass);
 }
+
 function toggleVisibility() {
     clearSearchResults();
     globalObj.toggleShade();
