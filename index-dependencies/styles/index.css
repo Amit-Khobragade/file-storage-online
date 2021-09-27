@@ -95,6 +95,7 @@ h1 {
 #folder-module {
   width: 80%;
   height: 25%;
+  min-height: 150px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 2fr 1fr;
@@ -203,6 +204,7 @@ h1 {
   border-radius: 50%;
   background-position-x: center;
   transition: all 500ms linear, border-radius 500ms 300ms linear;
+  z-index: 0;
 }
 #search:placeholder {
   padding: 0.25rem 0 0.25rem 2rem;
